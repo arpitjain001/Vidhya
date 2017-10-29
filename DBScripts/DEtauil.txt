@@ -1,0 +1,162 @@
+ND.Student			
+
+AadharID
+SamagraID
+RollNumber 
+Forename 
+Surname 
+DateOfBirth 
+GenderCode
+GuardianName
+GuardianOccupation
+GuardianAddressID ForeinKEY
+FatherName
+FatherOccupation
+FatherIncome
+FatherAddressID ForeinKEY
+MotherName
+MotherOccupation
+MotherIncome
+MotherAddressID ForeinKEY
+FamilyIncome
+Religion 	ForeinKEY
+Medium		ForeinKEY
+Category	ForeinKEY
+IsPhysicallyChallenged 
+PreviousSchoolName
+AdmissionDate
+AdmissionClass
+IsLunchFacilityTaken
+IsBusFacilityTaken
+AddressID 
+ContactNumber01 
+ContactNumber02 
+ContactNumber03 
+ContactNumber04 
+ContactNumber05 
+Email01 
+Email02 
+Email03 
+Email04 
+Email05 
+CustomReference01 
+CustomReference02 
+CustomReference03 
+CustomReference04 
+CustomReference05 
+CustomReference06 
+CustomReference07 
+CustomReference08 
+CustomReference09 
+CustomReference10 
+************************************************************************
+
+ND.StaffDetail
+
+StaffDetailID
+AadharID
+Forename 
+Surname 
+DateOfBirth 
+GenderCode	ForeinKEY
+Qualification
+CurrentRole	ForeinKEY
+Religion 	ForeinKEY
+Medium		ForeinKEY
+Category	ForeinKEY
+IsPhysicallyChallenged 
+PreviousSchoolName
+JoiningDate
+IsLunchFacilityTaken
+IsBusFacilityTaken
+AccountID	ForeinKEY
+AddressID 	ForeinKEY
+ContactNumber01 
+ContactNumber02 
+ContactNumber03 
+ContactNumber04 
+ContactNumber05 
+Email01 
+Email02 
+Email03 
+Email04 
+Email05 
+CustomReference01 
+CustomReference02 
+CustomReference03 
+CustomReference04 
+CustomReference05 
+CustomReference06 
+CustomReference07 
+CustomReference08 
+CustomReference09 
+CustomReference10 
+
+
+
+************************************************************************
+ND.Address
+AddressID bigint CONSTRAINT PK_Address_ID NOT NULL PRIMARY KEY,
+AddressLine01 varchar(max),
+AddressLine02 varchar(max),
+AddressLine03 varchar(max),
+Village varchar(250),
+CityCode varchar(10) CONSTRAINT FK_Address_City_CityCode FOREIGN KEY REFERENCES City(CityCode),
+StateCode varchar(10) CONSTRAINT FK_Address_State_StateCode FOREIGN KEY REFERENCES State(StateCode),
+CountryCode varchar(10) CONSTRAINT FK_Address_Country_CountryCode FOREIGN KEY REFERENCES Country(CountryCode),
+PostCode varchar(10),
+FullAddress varchar(500),
+CustomReference01 varchar(100),
+CustomReference02 varchar(100),
+CustomReference03 varchar(100),
+CustomReference04 varchar(100),
+CustomReference05 varchar(100),
+CustomReference06 varchar(100),
+CustomReference07 varchar(100),
+CustomReference08 varchar(100),
+CustomReference09 varchar(100),
+CustomReference10 varchar(100),
+
+
+
+************************************************************************
+Config.Class
+
+ClassID
+ClassName
+ClassSection
+SyllabusID
+
+************************************************************************
+Tea.Attendance
+AttendanceID
+Date
+ClassID
+StudentID
+
+************************************************************************
+Config.Syllabus
+
+SyllabusID
+SyllabusName
+
+
+
+************************************************************************
+
+Acc.Account
+
+AccountID
+BankName
+IFSCCode
+AccountNumber
+SalaryPerMonth
+
+************************************************************************
+Config.Permission
+
+PermissionID
+PermissionToken
+
+
+
