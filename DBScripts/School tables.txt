@@ -1,5 +1,6 @@
-ND.Student			
+ND.Name			
 
+NameID
 AadharID
 SamagraID
 RollNumber 
