@@ -71,7 +71,24 @@ GO
 CREATE TABLE [Config].[Syllabus]
 (
 SyllabusID bigint CONSTRAINT PK_Syllabus_ID NOT NULL PRIMARY KEY,
-SyllabusName varchar(250),
+SyllabusName varchar(250)
+)
+
+GO
+
+CREATE TABLE [Config].[Book]
+(
+BookID bigint CONSTRAINT PK_Syllabus_ID NOT NULL PRIMARY KEY,
+BookName varchar(250),
+)
+
+GO
+
+CREATE TABLE [Config].[SyllabusBook]
+(
+SyllabusBookID bigint CONSTRAINT PK_SyllabusBook_ID NOT NULL PRIMARY KEY,
+BookID bigint CONSTRAINT FK_SyllabusBook_Book_BookID NOT NULL FOREIGN KEY REFERENCES Config.Book(BookID),
+SyllabusID bigint CONSTRAINT FK_SyllabusBook_Syllabus_SyllabusID FOREIGN KEY REFERENCES Config.Syllabus(SyllabusID),
 )
 
 GO
@@ -224,8 +241,6 @@ PreviousSchoolName varchar(250),
 AdmissionDate Datetime,
 IsLunchFacilityTaken bit,
 IsBusFacilityTaken bit,
-ClassID  bigint CONSTRAINT FK_Student_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
-PreviousClassIDs varchar(50),
 ContactNumber01 varchar(10),
 ContactNumber02 varchar(10),
 ContactNumber03 varchar(10),
@@ -270,6 +285,16 @@ CustomNumeric10 decimal,
 
 GO
 
+CREATE TABLE ND.[StudentClass]
+(
+StudentClassID bigint CONSTRAINT PK_StudentClass_ID NOT NULL PRIMARY KEY,
+StudentID bigint CONSTRAINT FK_StudentClass_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
+ClassID bigint CONSTRAINT FK_StudentClass_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
+ClassYear varchar(7),
+IsPresentClass bit
+);
+
+GO
 
 CREATE TABLE ND.[StaffSalary]
 (
@@ -340,7 +365,7 @@ GO
 CREATE TABLE [Tea].[ClassKG1StudentAttendance]
 (
 ClassKG1StudentAttendanceID bigint CONSTRAINT PK_ClassKG1StudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassKG1StudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassKG1StudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassKG1StudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -352,7 +377,7 @@ GO
 CREATE TABLE [Tea].[ClassKG2StudentAttendance]
 (
 ClassKG2StudentAttendanceID bigint CONSTRAINT PK_ClassKG2StudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassKG2StudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassKG2StudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassKG2StudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -364,7 +389,7 @@ GO
 CREATE TABLE [Tea].[ClassFirstStudentAttendance]
 (
 ClassFirstStudentAttendanceID bigint CONSTRAINT PK_ClassFirstStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassFirstStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassFirstStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassFirstStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -376,7 +401,7 @@ GO
 CREATE TABLE [Tea].[ClassSecondStudentAttendance]
 (
 ClassSecondStudentAttendanceID bigint CONSTRAINT PK_ClassSecondStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassSecondStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassSecondStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassSecondStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -388,7 +413,7 @@ GO
 CREATE TABLE [Tea].[ClassThirdStudentAttendance]
 (
 ClassThirdStudentAttendanceID bigint CONSTRAINT PK_ClassThirdStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassThirdStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassThirdStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassThirdStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -400,7 +425,7 @@ GO
 CREATE TABLE [Tea].[ClassFourthStudentAttendance]
 (
 ClassFourthStudentAttendanceID bigint CONSTRAINT PK_ClassFourthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassFourthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassFourthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassFourthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -412,7 +437,7 @@ GO
 CREATE TABLE [Tea].[ClassFifthStudentAttendance]
 (
 ClassFifthStudentAttendanceID bigint CONSTRAINT PK_ClassFifthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassFifthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassFifthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassFifthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -424,7 +449,7 @@ GO
 CREATE TABLE [Tea].[ClassSixthStudentAttendance]
 (
 ClassSixthStudentAttendanceID bigint CONSTRAINT PK_ClassSixthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassSixthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassSixthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassSixthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -436,7 +461,7 @@ GO
 CREATE TABLE [Tea].[ClassSeventhStudentAttendance]
 (
 ClassSeventhStudentAttendanceID bigint CONSTRAINT PK_ClassSeventhStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassSeventhStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassSeventhStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassSeventhStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -448,7 +473,7 @@ GO
 CREATE TABLE [Tea].[ClassEighthStudentAttendance]
 (
 ClassEighthStudentAttendanceID bigint CONSTRAINT PK_ClassEighthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassEighthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassEighthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassEighthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -460,7 +485,7 @@ GO
 CREATE TABLE [Tea].[ClassNinthStudentAttendance]
 (
 ClassNinthStudentAttendanceID bigint CONSTRAINT PK_ClassNinthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassNinthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassNinthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassNinthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -472,7 +497,7 @@ GO
 CREATE TABLE [Tea].[ClassTenthStudentAttendance]
 (
 ClassTenthStudentAttendanceID bigint CONSTRAINT PK_ClassTenthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassTenthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassTenthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassTenthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -484,7 +509,7 @@ GO
 CREATE TABLE [Tea].[ClassEleventhStudentAttendance]
 (
 ClassEleventhStudentAttendanceID bigint CONSTRAINT PK_ClassEleventhStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassEleventhStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassEleventhStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassEleventhStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -496,7 +521,7 @@ GO
 CREATE TABLE [Tea].[ClassTwelthStudentAttendance]
 (
 ClassTwelthStudentAttendanceID bigint CONSTRAINT PK_ClassTwelthStudentAttendance_ID NOT NULL PRIMARY KEY,
-AttendanceDate DateTime,
+AttendanceDate Date,
 AttendanceTakerID  bigint CONSTRAINT FK_ClassTwelthStudentAttendance_Staff_StaffID FOREIGN KEY REFERENCES ND.Staff(StaffID),
 ClassID  bigint CONSTRAINT FK_ClassTwelthStudentAttendance_Class_ClassID FOREIGN KEY REFERENCES Config.Class(ClassID),
 StudentID  bigint CONSTRAINT FK_ClassTwelthStudentAttendance_Student_StudentID FOREIGN KEY REFERENCES ND.Student(StudentID),
@@ -505,9 +530,3 @@ IsPresent bit,
 
 GO
 Commit TRAN
-
-
-
-
-
-
